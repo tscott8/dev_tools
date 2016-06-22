@@ -1,0 +1,60 @@
+#!/bin/bash
+cd ~/Git/canvas-lms
+echo "======>STARTING DOCKERIZED CANVAS..."
+echo
+#open a new terminal tab and startup the docker machine for canvas
+echo  "======>STARTING CANVAS WEB SERVER AND DELAYED JOBS ..."
+tab2='cd ~/Git/canvas-lms && docker-compose up web jobs '
+new_tab "CANVAS SERVER" "$tab2"
+echo "======>DONE"
+echo
+# osascript -e 'tell application "Terminal"
+# 		activate
+# 		delay(0.3)
+# 		tell application "System Events"
+# 			keystroke "t" using command down
+# 		end tell
+# 		delay(0.3)
+# 		do script "cd ~/Git/canvas-lms && echo ======>STARTING CANVAS WEB SERVER AND DELAYED JOBS... && docker-compose up web jobs && echo ======>DONE" in tab 2 of window 1
+# 	end tell'
+
+# open a new terminal tab and start the webpack: watches file changes and recompiles
+echo "======>STARTING WEBPACK..."
+tab3='cd ~/Git/canvas-lms  && docker-compose run web npm run webpack '
+new_tab "WEBPACK" "$tab3"
+echo "======>DONE"
+echo
+# osascript -e 'tell application "Terminal"
+# 		activate
+# 		delay(0.3)
+# 		tell application "System Events"
+# 			keystroke "t" using command down
+# 		end tell
+# 		delay(0.3)
+# 		do script "cd ~/Git/canvas-lms && echo ======>STARTING WEBPACK... && docker-compose run web npm run webpack && echo ======>DONE" in tab 3 of window 1
+# 	end tell'
+
+#recompile the css since webpack is rude and wont do it.
+echo "======>RECOMPILING CSS..."
+tab4='cd ~/Git/canvas-lms && docker-compose run --rm web bundle exec rake brand_configs:write && docker-compose run --rm web node_modules/.bin/brandable_css'
+new_tab "CSS COMPILER" "$tab4"
+echo "======>DONE"
+
+# osascript -e 'tell application "Terminal"
+# 		activate
+# 		delay(0.3)
+# 		tell application "System Events"
+# 			keystroke "t" using command down
+# 		end tell
+# 		delay(0.3)
+# 		do script "cd ~/Git/canvas-lms && echo ======>RECOMPILING CSS... && docker-compose run --rm web bundle exec rake brand_configs:write && docker-compose run --rm web node_modules/.bin/brandable_css && echo ======>DONE" in tab 4 of window 1
+# 	end tell'
+
+# # go to the canvas directory to do stuff!
+# osascript -e 'tell application "Terminal"
+# 		activate
+# 		do script "echo \"======>DONE\" " in tab 1 of window 1
+# 	end tell'
+
+#runs dev mode to 1 port only
+#docker-compose run -e VIRTUAL_PORT=8080 -p 8080 --rm web bundle exec rails s -p 8080 -b 0.0.0.0

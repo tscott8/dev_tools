@@ -1,0 +1,33 @@
+#!/bin/bash
+token="Authorization: Bearer AEm4JegAKcxM3lUhySr4qRdsXNRqH4sh3bo4533l88Ufpk4lMIKpVSBM82XkJnmL"
+
+echo "=====================LIST COURSES========================="
+function courses {
+  curl -H "$token" localhost:3000/api/v1/courses
+}
+courses
+echo
+echo
+
+echo "=====================LIST STUDENTS========================="
+function students {
+  curl -H "$token" localhost:3000/api/v1/courses/3/students
+}
+students
+echo
+echo
+
+echo "=====================LIST ASSIGNMENTS========================="
+function assignments {
+  curl -H "$token" localhost:3000/api/v1/courses/3/assignments
+}
+assignments
+echo
+echo
+
+echo "=====================LIST POLLS========================="
+function polls {
+  curl -H "$token" localhost:3000/api/v1/polls
+}
+polls
+echo
