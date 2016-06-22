@@ -1,0 +1,6 @@
+#!/bin/bash
+cd ~/Git/canvas
+git checkout master && git pull --rebase
+bundle install && bundle exec rake canvas:compile_assets && bundle exec rake db:migrate
+# rm -rf node_modules && rm -rf gems/**/node_modules && npm cache clean && npm install
+cd ~ && ./runCanvasLocal.sh

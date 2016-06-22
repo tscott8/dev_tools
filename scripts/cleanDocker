@@ -1,0 +1,22 @@
+#!/bin/bash
+cd ~/Git/canvas-lms
+echo "======>SWITCHING TO MASTER BRANCH..."
+git checkout master
+echo "======>DONE"
+echo
+echo "======>PULLING MOST RECENT VERSION..."
+git pull --rebase
+echo "======>DONE"
+echo
+echo "======>SPINNING UP DOCKER..."
+echo "======>INSTALLING BUNDLE..."
+docker-compose run --rm web bundle install
+echo "======>DONE"
+echo
+echo "======>COMPILING ASSETS..."
+docker-compose run --rm web bundle exec rake canvas:compile_assets
+echo "======>DONE"
+echo
+echo "======>MIGRATING DATABASE..."
+docker-compose run --rm web bundle exec rake db:migrate
+echo "======>DONE"
