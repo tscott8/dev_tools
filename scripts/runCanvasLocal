@@ -1,43 +1,64 @@
 #!/bin/bash
-
-#canvasInstallLocation="~/Git/canvas"
-
-# open a new terminal tab and start the canvas server
-osascript -e 'tell application "Terminal"
-		activate
-		delay(0.3)
-		tell application "System Events"
-			keystroke "t" using command down
-		end tell
-		delay(0.3)
-		do script "cd ~/Git/canvas && bundle exec rails s" in tab 2 of window 1
-	end tell'
+#
+# #canvasInstallLocation="~/Git/canvas"
+#
+# # open a new terminal tab and start the canvas server
+# osascript -e 'tell application "Terminal"
+# 		activate
+# 		delay(0.3)
+# 		tell application "System Events"
+# 			keystroke "t" using command down
+# 		end tell
+# 		delay(0.3)
+# 		do script "cd ~/Git/canvas && bundle exec rails s" in tab 2 of window 1
+# 	end tell'
+#
+# # open a new terminal tab and start the guard: watches file changes and recompiles
+# osascript -e 'tell application "Terminal"
+# 		activate
+# 		delay(0.3)
+# 		tell application "System Events"
+# 			keystroke "t" using command down
+# 		end tell
+# 		delay(0.3)
+# 		do script "cd ~/Git/canvas && bundle exec guard" in tab 3 of window 1
+# 	end tell'
+#
+# # open a new terminal tab and start the optimization server to speed up canvas
+# osascript -e 'tell application "Terminal"
+# 		activate
+# 		delay(0.3)
+# 		tell application "System Events"
+# 			keystroke "t" using command down
+# 		end tell
+# 		delay(0.3)
+# 		do script "cd ~/Git/canvas && redis-server /usr/local/etc/redis.conf" in tab 4 of window 1
+# 	end tell'
+#
+# # go to the canvas directory to do stuff!
+# osascript -e 'tell application "Terminal"
+# 		activate
+# 		delay(0.3)
+# 		do script "cd ~/Git/canvas && echo CANVAS, GUARD, REDIS have been started" in tab 1 of window 1
+# 	end tell'
+#!/bin/bash
+cd ~/Git/canvas-lms
+echo "======>STARTING CANVAS..."
+#open a new terminal tab and startup the docker machine for canvas
+echo  "======>STARTING CANVAS WEB SERVER..."
+tab2='cd ~/Git/canvas && bundle exec rails s '
+new_tab "CANVAS SERVER" "$tab2"
+echo "======>DONE"
+echo
 
 # open a new terminal tab and start the guard: watches file changes and recompiles
-osascript -e 'tell application "Terminal"
-		activate
-		delay(0.3)
-		tell application "System Events"
-			keystroke "t" using command down
-		end tell
-		delay(0.3)
-		do script "cd ~/Git/canvas && bundle exec guard" in tab 3 of window 1
-	end tell'
+echo "======>STARTING GUARD..."
+tab3='cd ~/Git/canvas  &&  bundle exec guard '
+new_tab "GUARD" "$tab3"
+echo "======>DONE"
+echo
 
-# open a new terminal tab and start the optimization server to speed up canvas
-osascript -e 'tell application "Terminal"
-		activate
-		delay(0.3)
-		tell application "System Events"
-			keystroke "t" using command down
-		end tell
-		delay(0.3)
-		do script "cd ~/Git/canvas && redis-server /usr/local/etc/redis.conf" in tab 4 of window 1
-	end tell'
-
-# go to the canvas directory to do stuff!
-osascript -e 'tell application "Terminal"
-		activate
-		delay(0.3)
-		do script "cd ~/Git/canvas && echo CANVAS, GUARD, REDIS have been started" in tab 1 of window 1
-	end tell'
+echo "======>STARTING REDIS SERVER..."
+tab4='cd ~/Git/canvas && redis-server /usr/local/etc/redis.conf '
+new_tab "REDIS" "$tab4"
+echo "======>DONE"

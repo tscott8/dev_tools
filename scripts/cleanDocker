@@ -5,10 +5,13 @@ git checkout master
 echo "======>DONE"
 echo
 echo "======>PULLING MOST RECENT VERSION..."
-git pull --rebase
+git pull
 echo "======>DONE"
 echo
 echo "======>SPINNING UP DOCKER..."
+dinghy up
+echo"======>DONE"
+echo
 echo "======>INSTALLING BUNDLE..."
 docker-compose run --rm web bundle install
 echo "======>DONE"

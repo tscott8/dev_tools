@@ -1,0 +1,13 @@
+#!/bin/bash
+cd ~/Git/quiz_api
+# cp docker-compose.dev.override.yml docker-compose.override.yml
+docker-compose build --pull
+docker-compose run --rm events_consumer npm install
+docker-compose run --rm events_consumer npm run create_stream
+docker-compose run --rm web bundle install
+docker-compose run --rm web bundle exec rake db:reset dynamo:migrate
+docker-compose run --rm -e RAILS_ENV=test web bundle exec rake db:reset dynamo:migrate
+docker-compose up -d
+open http://api.quiz.docker
+# git checkout master
+# git pull

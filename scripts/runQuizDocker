@@ -1,16 +1,12 @@
+#!/bin/bash
 dinghy up
-cd ~/Git/quiz_api
-docker-compose up
-open http://api.quiz.docker?access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE0NjQyMDU0ODQsImlhdCI6MTQ2NDIwMTg4NCwianRpIjoiMzQyZGU1MDgtYjBjYi00Y2ZlLWJjOWEtYzA1NzllN2IzYjk5IiwibmJmIjoxNDY0MjAxODU0LCJhY2NvdW50Ijp7Imdsb2JhbF9pZCI6MTAwMDAwMDAwMDAwMDJ9LCJ1c2VyIjp7ImZ1bGxfbmFtZSI6bnVsbCwiZ2l2ZW5fbmFtZSI6bnVsbCwiaWQiOjEwLCJlbWFpbCI6InN0ZXJsaW5nQGluc3RydWN0dXJlLmNvbSJ9fQ.mfEtsu7sKJur8LKc4QZ_UmLOOKWApCDLPc_rc66y7x3SqHP7myZ-3H4YG4LGyyXD-0oAZFwFd3Hf9yRnW0gHNA/
+tab2='cd ~/Git/quiz_api && dcu -d && && open http://api.quiz.docker'
+new_tab "quiz_api SERVER" "$tab2"
+# new terminal tab
+tab3='cd ~/Git/quiz_web && dcu web && open http://quiz.docker'
+new_tab "quiz_web SERVER" "$tab3"
 
-new terminal tab
-cd ~/Git/quiz_web
-./bin/dev-setup
-docker-compose up web
-open http://quiz.docker
 
-if you see `Error: ENOENT: no such file or directory, stat '/usr/src/app/dist/index.html' at Error (native)`
-ctrl-c to kill it
-docker-compose run --rm web npm run generate-index
-
-open
+#if you see `Error: ENOENT: no such file or directory, stat '/usr/src/app/dist/index.html' at Error (native)`
+#ctrl-c to kill it
+#docker-compose run --rm web npm run generate-index

@@ -3,4 +3,4 @@ cd ~/Git/canvas
 script/canvas_update
 #npm_purge
 cd ~
-./runCanvasLocal.sh
+canLoc

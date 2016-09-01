@@ -6,6 +6,17 @@ alias npm_purge="rm -rf node_modules && rm -rf gems/**/node_modules && npm cache
 alias dbm="bin/rake db:migrate && bin/rake db:migrate RAILS_ENV=test"
 alias canDock="runCanvasDocker"
 alias cleanDock="cleanDocker"
+alias canLoc="runCanvasLocal"
+alias cleanLoc="clean2"
+alias dc="docker-compose"
+alias dcr="docker-compose run --rm web"
+alias dcu="docker-compose up"
+alias dcd="docker-compose down"
+
+function docker_clean() {
+docker rm -v $(docker ps -a -q -f status=exited)
+docker rmi $(docker images -f "dangling=true" -q)
+}
 
 #functions
 function new_tab() {
@@ -20,3 +31,5 @@ function new_tab() {
 export -f new_tab
 
 export PATH=$PATH:~/scripts
+export NVM_DIR="$HOME/.nvm"
+  . "$(brew --prefix nvm)/nvm.sh"
